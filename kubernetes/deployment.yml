@@ -18,7 +18,7 @@
         containers: 
           - 
             name: "order"
-            image: "order"
+            image: "jinyoung/order:v1"
             ports: 
               - 
                 containerPort: 8080
@@ -72,7 +72,7 @@
         containers: 
           - 
             name: "exchange"
-            image: "exchange"
+            image: "jinyoung/exchange:v1"
             ports: 
               - 
                 containerPort: 8080
@@ -126,7 +126,7 @@
         containers: 
           - 
             name: "point"
-            image: "point"
+            image: "jinyoung/point:v1"
             ports: 
               - 
                 containerPort: 8080
@@ -180,7 +180,7 @@
         containers: 
           - 
             name: "deadline"
-            image: "deadline"
+            image: "jinyoung/deadline:v1"
             ports: 
               - 
                 containerPort: 8080
@@ -214,3 +214,48 @@
         targetPort: 8080
     selector: 
       app: "deadline"
+---
+  apiVersion: "networking.k8s.io/v1"
+  kind: "Ingress"
+  metadata: 
+    name: "gateway"
+    annotations: 
+      kubernetes.io/ingress.class: "nginx"
+  spec: 
+    rules: 
+      - 
+        host: ""
+        http: 
+          paths: 
+            - 
+              path: "/orders"
+              pathType: "Prefix"
+              backend: 
+                service: 
+                  name: "order"
+                  port: 
+                    number: 8080
+            - 
+              path: "/exchanges"
+              pathType: "Prefix"
+              backend: 
+                service: 
+                  name: "exchange"
+                  port: 
+                    number: 8080
+            - 
+              path: "/points"
+              pathType: "Prefix"
+              backend: 
+                service: 
+                  name: "point"
+                  port: 
+                    number: 8080
+            - 
+              path: "/deadlines"
+              pathType: "Prefix"
+              backend: 
+                service: 
+                  name: "deadline"
+                  port: 
+                    number: 8080

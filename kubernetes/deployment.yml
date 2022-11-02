@@ -63,7 +63,7 @@
     selector: 
       matchLabels: 
         app: "exchange"
-    replicas: 1
+    replicas: 3
     template: 
       metadata: 
         labels: 

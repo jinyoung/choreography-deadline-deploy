@@ -6,12 +6,9 @@ import lombok.*;
 import java.util.*;
 @Data
 @ToString
-public class OrderRejected extends AbstractEvent {
+public class ExchangeCompensated extends AbstractEvent {
 
     private Long id;
-    private String currencyId;
-    private Double amount;
-    private String holderId;
 }
 
 
